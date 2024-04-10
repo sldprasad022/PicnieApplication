@@ -15,25 +15,23 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User 
-{
+public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userId;
-	
+
 	private String fullName;
-	
+
 	private String email;
-	
+
 	private String password;
-	
+
 	private String otp;
-	
+
 	private String role;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="AdminId")
+	@JoinColumn(name = "AdminId")
 	private Admin admin;
 
-	
 }

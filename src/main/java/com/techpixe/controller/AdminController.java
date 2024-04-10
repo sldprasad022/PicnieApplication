@@ -15,21 +15,19 @@ import com.techpixe.service.AdminService;
 
 @RestController
 @RequestMapping("/admin")
-public class AdminController 
-{
+public class AdminController {
 	@Autowired
 	private AdminService adminService;
-	
+
 	@PostMapping("/save")
-	public ResponseEntity<Admin> save(@RequestParam String fullName, @RequestParam String email, @RequestParam Long MobileNumber, @RequestParam String password)
-	{
+	public ResponseEntity<Admin> save(@RequestParam String fullName, @RequestParam String email,
+			@RequestParam Long MobileNumber, @RequestParam String password) {
 		Admin saved = adminService.save(fullName, email, MobileNumber, password);
 		return new ResponseEntity<Admin>(saved, HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("/getByAdminId/{adminId}")
-	public ResponseEntity<?> getByAdminId(@PathVariable("adminId") Long id)
-	{
+	public ResponseEntity<?> getByAdminId(@PathVariable("adminId") Long id) {
 		Admin fetchedAdmin = adminService.getByAdminId(id);
 		return ResponseEntity.ok(fetchedAdmin);
 	}

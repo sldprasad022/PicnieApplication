@@ -10,15 +10,13 @@ import com.techpixe.repository.AdminRepository;
 import com.techpixe.service.AdminService;
 
 @Service
-public class AdminServiceImpl implements AdminService
-{
-	
+public class AdminServiceImpl implements AdminService {
+
 	@Autowired
 	private AdminRepository adminRepository;
 
 	@Override
-	public Admin save(String fullName, String email, Long MobileNumber, String password)
-	{
+	public Admin save(String fullName, String email, Long MobileNumber, String password) {
 		Admin admin = new Admin();
 		admin.setFullName(fullName);
 		admin.setEmail(email);
@@ -29,10 +27,9 @@ public class AdminServiceImpl implements AdminService
 	}
 
 	@Override
-	public Admin getByAdminId(Long id) 
-	{
-		return adminRepository.findById(id).orElseThrow(()-> new NoSuchElementException("Admin Id "+id+" is not present"));
+	public Admin getByAdminId(Long id) {
+		return adminRepository.findById(id)
+				.orElseThrow(() -> new NoSuchElementException("Admin Id " + id + " is not present"));
 	}
 
-	
 }

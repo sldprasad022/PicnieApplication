@@ -14,31 +14,26 @@ import com.techpixe.service.UserService;
 
 @RestController
 @RequestMapping("/user")
-public class UserController 
-{
+public class UserController {
 	@Autowired
 	private UserService userService;
-	
+
 	@PostMapping("/save")
-	public ResponseEntity<?> save(@RequestParam String email)
-	{
+	public ResponseEntity<?> save(@RequestParam String email) {
 		User saved = userService.saveUser(email);
 		return ResponseEntity.ok(saved);
 	}
-	
+
 	@PostMapping("/register/{email}/{admin}")
-	public ResponseEntity<User> registerUser(@RequestParam String fullName, @RequestParam String password, @RequestParam String otp, @PathVariable String email, 
-			@PathVariable(required = false) Long admin)
-	{
-		User registeredUser = userService.registerUser(fullName, password, otp, email,admin);
+	public ResponseEntity<User> registerUser(@RequestParam String fullName, @RequestParam String password,
+			@RequestParam String otp, @PathVariable String email, @PathVariable(required = false) Long admin) {
+		User registeredUser = userService.registerUser(fullName, password, otp, email, admin);
 		return new ResponseEntity<User>(registeredUser, HttpStatus.CREATED);
 	}
-	
-	
+
 	@PostMapping("/resend/{email}")
-    public ResponseEntity<String> resendOTP(@PathVariable String email)
-	{
-        String result = userService.resendOTP(email);
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
+	public ResponseEntity<String> resendOTP(@PathVariable String email) {
+		String result = userService.resendOTP(email);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
 }
