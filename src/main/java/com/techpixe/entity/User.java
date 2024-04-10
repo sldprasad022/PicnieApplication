@@ -31,9 +31,9 @@ public class User
 	
 	private String role;
 	
-//	@ManyToOne(fetch = FetchType.EAGER)
-//	@JoinColumn(name="adminId")
-//	private Admin admin;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="AdminId")
+	private Admin admin;
 
 	
 }

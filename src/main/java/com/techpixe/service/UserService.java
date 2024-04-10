@@ -6,5 +6,10 @@ public interface UserService
 {
 	User saveUser(String email);
 	
-	User registerUser(String fullName, String password, String otp, String email);
+	User registerUser(String fullName, String password, String otp, String email,Long admin);
+	
+	//resend otp
+	String resendOTP(String email);
+	
+	
 }
