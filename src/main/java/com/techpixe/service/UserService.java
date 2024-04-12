@@ -1,5 +1,7 @@
 package com.techpixe.service;
 
+import org.springframework.http.ResponseEntity;
+
 import com.techpixe.entity.User;
 
 public interface UserService {
@@ -9,5 +11,7 @@ public interface UserService {
 
 	// resend otp
 	String resendOTP(String email);
+
+	User getUserById(Long userId);
 
 }
