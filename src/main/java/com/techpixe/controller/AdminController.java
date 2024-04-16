@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpServerErrorException.InternalServerError;
 
 import com.techpixe.dto.ErrorResponseDto;
 import com.techpixe.entity.Admin;
@@ -68,4 +69,23 @@ public class AdminController {
 			return ResponseEntity.internalServerError().body(errorResponseDto);
 		}
 	}
+
+	@PostMapping("/forgotPassword/{email}")
+	public ResponseEntity<?> forgotPassword(@PathVariable String email, @RequestParam String newPassword) {
+		if (email != null) {
+			if (isEmail(email)) {
+				return adminService.forgotPassword(email, newPassword);
+			} else {
+				ErrorResponseDto errorResponseDto = new ErrorResponseDto();
+				errorResponseDto.setError("****Invalid Email Pattern****");
+				return ResponseEntity.internalServerError().body(errorResponseDto);
+			}
+		} else {
+			ErrorResponseDto errorResponseDto = new ErrorResponseDto();
+			errorResponseDto.setError("****Invalid Email Pattern****");
+			return ResponseEntity.internalServerError().body(errorResponseDto);
+		}
+
+	}
+
 }

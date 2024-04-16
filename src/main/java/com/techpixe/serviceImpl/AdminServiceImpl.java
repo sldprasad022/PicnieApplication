@@ -3,6 +3,7 @@ package com.techpixe.serviceImpl;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -110,7 +111,28 @@ public class AdminServiceImpl implements AdminService {
 			errorResponseDto.setError("****Old Password is not Matching****");
 			return ResponseEntity.internalServerError().body(errorResponseDto);
 		}
+	}
 
+	@Override
+	public ResponseEntity<?> forgotPassword(String email, String newPassword) {
+		Admin admin1 = adminRepository.findByEmail(email);
+		if (admin1 != null) {
+			admin1.setPassword(newPassword);
+			adminRepository.save(admin1);
+
+			AdminDto adminDto = new AdminDto();
+			adminDto.setAdminId(admin1.getAdminId());
+			adminDto.setEmail(admin1.getEmail());
+			adminDto.setFullName(admin1.getFullName());
+			adminDto.setMobileNumber(admin1.getMobileNumber());
+			adminDto.setRole(admin1.getRole());
+
+			adminDto.setPassword(newPassword);
+
+			return ResponseEntity.ok(adminDto);
+		} else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Email Id is not Present " + email);
+		}
 	}
 
 }

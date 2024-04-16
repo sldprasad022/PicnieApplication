@@ -12,4 +12,6 @@ public interface AdminService {
 	ResponseEntity<?> loginByEmail(String email, String password);
 
 	ResponseEntity<?> changePassword(Long id, String password, String newPassword);
+
+	ResponseEntity<?> forgotPassword(String email, String newPassword);
 }
