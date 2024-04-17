@@ -168,20 +168,30 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ResponseEntity<?> forgotPassword(String email, String otp, String newPassword) {
 		User user1 = userRepository.findByEmail(email);
-		if (user1 != null && user1.getOtp().equals(otp)) {
-			user1.setPassword(newPassword);
-			userRepository.save(user1);
+		if (user1 != null) 
+		{
+			if (user1.getOtp().equals(otp)) 
+			{
+				user1.setPassword(newPassword);
+				userRepository.save(user1);
 
-			UserDto userDto = new UserDto();
-			userDto.setFullName(user1.getFullName());
-			userDto.setEmail(user1.getEmail());
-			userDto.setRole(user1.getRole());
-			userDto.setUserId(user1.getUserId());
-			userDto.setOtp(user1.getOtp());
-			userDto.setPassword(newPassword);
+				UserDto userDto = new UserDto();
+				userDto.setFullName(user1.getFullName());
+				userDto.setEmail(user1.getEmail());
+				userDto.setRole(user1.getRole());
+				userDto.setUserId(user1.getUserId());
+				userDto.setOtp(user1.getOtp());
+				userDto.setPassword(newPassword);
 
-			return ResponseEntity.ok(userDto);
-		} else {
+				return ResponseEntity.ok(userDto);
+			}
+			else
+			{
+				throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,"Invalid OTP. Please enter the correct OTP.");
+			}
+		} 
+		else 
+		{
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, " User with is Email Id is Present " + email);
 		}
 	}
