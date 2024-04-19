@@ -70,28 +70,25 @@ public class UserServiceImpl implements UserService {
 		return otp.toString();
 	}
 
-	private static final Long DEFAULT_ADMIN_ID = 1L;
-
 	@Override
 	public User registerUser(String fullName, String password, String otp, String email, Long admin) {
 		User user1 = userRepository.findByEmail(email);
-
 		Admin adminId = adminRepository.findById(admin).orElse(null);
-
-		if (user1 != null && user1.getOtp().equals(otp)) {
-
-			user1.setFullName(fullName);
-			user1.setPassword(password);
-			user1.setRole("User");
-			if (admin != null) {
+		if (user1 != null) {
+			if (user1.getOtp().equals(otp)) {
+				user1.setFullName(fullName);
+				user1.setPassword(password);
+				user1.setRole("User");
 				user1.setAdmin(adminId);
+
+				return userRepository.save(user1);
 			} else {
-				Admin defaultAdmin = adminRepository.findById(DEFAULT_ADMIN_ID).orElse(null);
-				user1.setAdmin(defaultAdmin);
+				throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+						"Invalid OTP. Please Enter Correct OTP");
 			}
-			return userRepository.save(user1);
 		} else {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Email is not Present");
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+					"User with Email Id is not Present" + email);
 		}
 	}
 
@@ -190,6 +187,5 @@ public class UserServiceImpl implements UserService {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, " User with is Email Id is Present " + email);
 		}
 	}
-
 
 }
