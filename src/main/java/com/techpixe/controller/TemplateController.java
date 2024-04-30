@@ -37,4 +37,9 @@ public class TemplateController {
 		return ResponseEntity.ok(getTemplate);
 
 	}
+
+	@GetMapping("/{id}/download")
+	public ResponseEntity<byte[]> downloadTemplate(@PathVariable long id) {
+		return templateService.downloadTemplate(id);
+	}
 }

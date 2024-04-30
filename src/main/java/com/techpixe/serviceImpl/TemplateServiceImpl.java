@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.techpixe.entity.Project;
@@ -131,6 +135,26 @@ public class TemplateServiceImpl implements TemplateService {
 			return "No shapes found for the template.";
 		}
 		return "Template not found.";
+	}
+
+	@Override
+	public ResponseEntity<byte[]> downloadTemplate(long id) {
+		Optional<Template> templateOptional = templateRepository.findById(id);
+		if (templateOptional.isPresent()) {
+			Template template = templateOptional.get();
+			// String htmlContent = generateHtmlContent(template, id);
+
+			String htmlcontent = getTemplateById(id);
+
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.TEXT_HTML);
+			headers.setContentDispositionFormData("attachment", "template.html");
+
+			return new ResponseEntity<>(htmlcontent.getBytes(), headers, HttpStatus.OK);
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+
 	}
 
 }
