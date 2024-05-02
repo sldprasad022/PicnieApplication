@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 public class TextElement {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long textElementId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "template_id")

@@ -38,8 +38,8 @@ public class TemplateController {
 
 	}
 
-	@GetMapping("/{id}/download")
-	public ResponseEntity<byte[]> downloadTemplate(@PathVariable long id) {
-		return templateService.downloadTemplate(id);
+	@GetMapping("/download/{templateId}")
+	public ResponseEntity<byte[]> downloadTemplate(@PathVariable long templateId) {
+		return templateService.downloadTemplate(templateId);
 	}
 }

@@ -66,6 +66,7 @@ public class TemplateServiceImpl implements TemplateService {
 			shape.setOpacity(shape.getOpacity());
 			shape.setOutLineSize(shape.getOutLineSize());
 			shape.setOutLineColour(shape.getOutLineColour());
+			shape.setShadowEffect(false);
 			shape.setSkewX(shape.getSkewX());
 			shape.setSkewY(shape.getSkewY());
 			shape.setRotate(shape.getRotate());
@@ -90,25 +91,25 @@ public class TemplateServiceImpl implements TemplateService {
 			StringBuilder htmlBuilder = new StringBuilder();
 
 			// Append text elements
-			if (!textElements.isEmpty()) {
-				for (TextElement textElement : textElements) {
-					htmlBuilder.append("<div style=\"");
-					htmlBuilder.append("font-style: ").append(textElement.getFontStyle()).append("; ");
-					htmlBuilder.append("font-size: ").append(textElement.getTextSize()).append("px; ");
-					htmlBuilder.append("color: rgb(").append(textElement.getTextColor()).append(");");
-					htmlBuilder.append("transform: rotate(").append(textElement.getAngle()).append("deg);");
-					htmlBuilder.append("position: absolute; left: ").append(textElement.getDestX()).append("%; top: ")
-							.append(textElement.getDestY()).append("%;");
-					htmlBuilder.append("max-width: ").append(textElement.getMaxLength()).append("%;");
-					htmlBuilder.append("line-height: ").append(textElement.getInputLineHeight()).append(";");
-					htmlBuilder.append("letter-spacing: ").append(textElement.getLetterSpacing()).append("px;");
-					htmlBuilder.append("text-align: ").append(textElement.getTextAlign()).append(";\">");
-					htmlBuilder.append(textElement.getText());
-					htmlBuilder.append("</div>");
-				}
-			} else {
-				htmlBuilder.append("No text elements found for the template.");
+			// if (!textElements.isEmpty()) {
+			for (TextElement textElement : textElements) {
+				htmlBuilder.append("<div style=\"");
+				htmlBuilder.append("font-style: ").append(textElement.getFontStyle()).append("; ");
+				htmlBuilder.append("font-size: ").append(textElement.getTextSize()).append("px; ");
+				htmlBuilder.append("color: rgb(").append(textElement.getTextColor()).append(");");
+				htmlBuilder.append("transform: rotate(").append(textElement.getAngle()).append("deg);");
+				htmlBuilder.append("position: absolute; left: ").append(textElement.getDestX()).append("%; top: ")
+						.append(textElement.getDestY()).append("%;");
+				htmlBuilder.append("max-width: ").append(textElement.getMaxLength()).append("%;");
+				htmlBuilder.append("line-height: ").append(textElement.getInputLineHeight()).append(";");
+				htmlBuilder.append("letter-spacing: ").append(textElement.getLetterSpacing()).append("px;");
+				htmlBuilder.append("text-align: ").append(textElement.getTextAlign()).append(";\">");
+				htmlBuilder.append(textElement.getText());
+				htmlBuilder.append("</div>");
 			}
+			// } else {
+			// .append("No text elements found for the template.");
+			// }
 
 			List<Shapes> shapesList = template.getShapes();
 			if (!shapesList.isEmpty()) {
@@ -132,19 +133,19 @@ public class TemplateServiceImpl implements TemplateService {
 				}
 				return htmlBuilder.toString();
 			}
-			return "No shapes found for the template.";
+			// return "No shapes found for the template.";
 		}
 		return "Template not found.";
 	}
 
 	@Override
-	public ResponseEntity<byte[]> downloadTemplate(long id) {
-		Optional<Template> templateOptional = templateRepository.findById(id);
+	public ResponseEntity<byte[]> downloadTemplate(long templateId) {
+		Optional<Template> templateOptional = templateRepository.findById(templateId);
 		if (templateOptional.isPresent()) {
 			Template template = templateOptional.get();
 			// String htmlContent = generateHtmlContent(template, id);
 
-			String htmlcontent = getTemplateById(id);
+			String htmlcontent = getTemplateById(templateId);
 
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.TEXT_HTML);

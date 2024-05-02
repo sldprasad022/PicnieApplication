@@ -10,6 +10,6 @@ public interface TemplateService {
 
 	String getTemplateById(long templateId);
 
-	ResponseEntity<byte[]> downloadTemplate(long id);
+	ResponseEntity<byte[]> downloadTemplate(long templateId);
 
 }
