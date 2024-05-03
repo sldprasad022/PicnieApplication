@@ -12,4 +12,5 @@ public interface ProjectService {
 	List<Project> allProjects();
 
 	void deleteByProjectId(Long id);
+
 }
