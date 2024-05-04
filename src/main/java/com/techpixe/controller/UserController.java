@@ -30,13 +30,22 @@ public class UserController {
 		return ResponseEntity.ok(saved);
 	}
 
-	@PostMapping("/register/{email}/{admin}")
+	@PutMapping("/register/{email}/{admin}")
 	public ResponseEntity<User> registerUser(@RequestParam String fullName, @RequestParam String password,
-			@RequestParam String otp, @PathVariable String email, @PathVariable Long admin) {
+			@RequestParam String otp, @PathVariable String email,
+			@PathVariable( name = "admin", required = false) Long admin ) {
 		User registeredUser = userService.registerUser(fullName, password, otp, email, admin);
 		return new ResponseEntity<User>(registeredUser, HttpStatus.CREATED);
 	}
+	
 
+	@PutMapping("/register/{email}")
+	public ResponseEntity<User> registerUserWithoutAdmin(@RequestParam String fullName, @RequestParam String password,
+			@RequestParam String otp, @PathVariable String email,
+			@PathVariable( name = "admin", required = false) Long admin ) {
+		User registeredUser = userService.registerUser(fullName, password, otp, email, admin);
+		return new ResponseEntity<User>(registeredUser, HttpStatus.CREATED);
+	}
 	@PostMapping("/resendOTP/{email}")
 	public ResponseEntity<String> resendOTP(@PathVariable String email) {
 		String result = userService.resendOTP(email);
