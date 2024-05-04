@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 		SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
 		simpleMailMessage.setFrom(fromMail);
 		simpleMailMessage.setTo(email);
-		simpleMailMessage.setSubject("Registration completed Successfully in GetPhoto application\n");
+		simpleMailMessage.setSubject("Registration completed Successfully in Picnie application\n");
 		simpleMailMessage.setText("Dear  user "
 				+ ",\n\n Thank you for singing Up for Picnie! click bewlow to get  started on your web or mobile device .\n\nPlease check your registered email and generted OTP\n UserEmail  :"
 				+ email + "\n OTP   :" + otp + "\n\n"
@@ -105,7 +105,7 @@ public class UserServiceImpl implements UserService {
 			SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
 			simpleMailMessage.setFrom(fromMail);
 			simpleMailMessage.setTo(email);
-			simpleMailMessage.setSubject("Registration completed Successfully in GetPhoto application\n");
+			simpleMailMessage.setSubject("Registration completed Successfully in Picnie application\n");
 			simpleMailMessage.setText("Dear  user "
 					+ ",\n\n Thank you for singing Up for Picnie! click bewlow to get  started on your web or mobile device .\n\nPlease check your registered email and generted OTP\n UserEmail  :"
 					+ email + "\n NEW OTP   :" + newOTP + "\n\n"
@@ -149,7 +149,7 @@ public class UserServiceImpl implements UserService {
 			SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
 			simpleMailMessage.setFrom(fromMail);
 			simpleMailMessage.setTo(email);
-			simpleMailMessage.setSubject("Registration completed Successfully in GetPhoto application\n");
+			simpleMailMessage.setSubject("Registration completed Successfully in Picnie application\n");
 			simpleMailMessage.setText("Dear  user "
 					+ ",\n\n You can set new Password.\n\nPlease check your registered email and generted OTP\n UserEmail  :"
 					+ email + "\n OTP for Forgot Password   :" + otp + "\n\n"

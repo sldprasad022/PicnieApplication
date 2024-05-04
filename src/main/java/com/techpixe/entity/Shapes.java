@@ -1,8 +1,5 @@
 package com.techpixe.entity;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
@@ -17,23 +14,44 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Project {
+@Data
+public class Shapes {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long projectId;
+	private Long shapeId;
 
-	private String projectName;
+	private String shapeName;
 
-	private Boolean status;
+	private String fillStyle;
 
-	private LocalDateTime created;
+	private String fillColour;
+
+	private Long outLineSize;
+
+	private String outLineColour;
+
+	private boolean shadowEffect;
+
+	private Double opacity;
+
+	private Long skewX;
+
+	private Long skewY;
+
+	private String rotate;
+
+	private Long customWidth;
+
+	private Long customHeight;
+
+	// private Long aspectRatio;
 
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "userId")
-	private User user;
+	@JoinColumn(name = "templateId")
+	private Template template;
 
 }

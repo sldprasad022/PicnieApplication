@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 public class Template {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long templateId;
 
 	@Column(name = "template_name")
 	private String templateName;
@@ -37,5 +37,8 @@ public class Template {
 
 	@OneToMany(mappedBy = "template", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<TextElement> textElements;
+
+	@OneToMany(mappedBy = "template", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Shapes> shapes;
 
 }
