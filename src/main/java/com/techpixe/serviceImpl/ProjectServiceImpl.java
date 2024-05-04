@@ -26,13 +26,13 @@ public class ProjectServiceImpl implements ProjectService {
 	private UserRepository userRepository;
 
 	@Override
-	public Project createProject(String projectName, Boolean status, Long user) {
+	public Project createProject(String projectName, Long user) {
 		User user1 = userRepository.findById(user)
 				.orElseThrow(() -> new NoSuchElementException("User with this Id is not Present " + user));
 		if (user1 != null) {
 			Project project = new Project();
 			project.setProjectName(projectName);
-			project.setStatus(status);
+			project.setStatus(true);
 			project.setUser(user1);
 			project.setCreated(LocalDateTime.now());
 

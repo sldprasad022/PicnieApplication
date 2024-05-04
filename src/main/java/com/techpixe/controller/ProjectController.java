@@ -24,9 +24,8 @@ public class ProjectController {
 	private ProjectService projectService;
 
 	@PostMapping("/saveProject/{user}")
-	public ResponseEntity<Project> createProject(@RequestParam String projectName, @RequestParam Boolean status,
-			@PathVariable Long user) {
-		Project savedProject = projectService.createProject(projectName, status, user);
+	public ResponseEntity<Project> createProject(@RequestParam String projectName, @PathVariable Long user) {
+		Project savedProject = projectService.createProject(projectName, user);
 		return new ResponseEntity<Project>(savedProject, HttpStatus.CREATED);
 	}
 

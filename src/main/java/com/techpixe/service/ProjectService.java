@@ -5,7 +5,7 @@ import java.util.List;
 import com.techpixe.entity.Project;
 
 public interface ProjectService {
-	Project createProject(String projectName, Boolean status, Long user);
+	Project createProject(String projectName, Long user);
 
 	Project getProjectById(Long id);
 
